@@ -152,7 +152,11 @@ function receiveMessage(event) {
     if(messageData.text=="Error Occured Session Limit Reached"){
         alert("Session Limit Reached, Restarting");
     }
-    const combinedText = messageData.text
+    
+    
+
+    if (response.text) {
+        const combinedText = messageData.text
     .map(item => item.text
         .replace(/\n/g, ' ')
         .replace(/[^\w\s,;!?]/g, '')
@@ -160,9 +164,6 @@ function receiveMessage(event) {
     .join(' ')
     .replace(/\s+/g, ' ')
     .trim();
-    
-
-    if (response.text) {
         accumulatedText += combinedText;
         if(combinedText!="" || combinedText!= "undefined" || combinedText != "None") {
         displayMessage(combinedText);
