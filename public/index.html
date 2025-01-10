@@ -17,6 +17,9 @@
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <h3 class="title">VIQ AI Assistant</h3>
                     <div class="screenshare">
+                        <div id="wrap">
+                        </div>
+                        
                         <!-- Video Element -->
                         <video id="videoElement" autoplay style="width: 640px; height: 480px;"></video>
     
@@ -27,13 +30,13 @@
                         <div id="chatLog"></div>
                         <div class="sidebar-options">
                             <div class="option-group">
-                                <span>output</span>
+                                <span>Output</span>
                                 <select id="textoraudio" onchange="toggleVoiceSelection()">
-                                    <option value="TEXT">TEXT</option>
                                     <option value="AUDIO">AUDIO</option>
+                                    <option value="TEXT">TEXT</option>
                                 </select>
                                 <div id="voiceSelectionContainer" style="display: none;">
-                                    <span>voice</span>
+                                    <span>Voice</span>
                                     <select id="geminiVoiceSelect">
                                         <option value="AOEDE">Aoede (Female)</option>
                                         <option value="CHARON">Charon (Male)</option>
@@ -54,11 +57,23 @@
                                            value="0.7"
                                            oninput="updateTemperature()">
                                 </div>
-                                <button class="startbtn" onclick="startProcess()">Start Screenhare</button>
+                                <div class="button-container">
+                                    <button class="control-btn start" onclick="startProcess()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </button>
+                                    <button class="control-btn stop" onclick="stopAudioInput()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 6h12v12H6z"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div id="response-container">
                         </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r77/three.min.js" ></script>
                         <script src="/script.js"></script>
                         <button class="copy-button" onclick="copy()">Copy</button>
 
