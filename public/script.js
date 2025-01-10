@@ -57,6 +57,28 @@ async function startScreenShare() {
         console.error("Error accessing the screen: ", err);
     }
 }
+//function to start webcam and register a promise
+async function startWebcam() {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                width: { max: 640 },
+                height: { max: 480 }
+            }
+        });
+        video.srcObject = stream;
+        await new Promise(resolve => {
+            video.onloadedmetadata = () => {
+                console.log("video loaded metadata");
+                resolve();
+            }
+        });
+    } catch (err) {
+        console.error("Error accessing webcam: ", err);
+    }
+}
+
+
 
 // Function to capture an image from the shared screen
 function captureImage() {
@@ -400,7 +422,16 @@ async function startProcess(){
     
     console.log('Session configuration:', customConfig);
     console.log(selectedVoice,selectedMode,temp);
+    const selectvideo= document.getElementById('videoselection');
+    const selectedvideo= selectvideo.value;
+    if(selectedvideo == "Webcam") {
+        console.log(selectedvideo)
+   await startWebcam()
+    }
+else {
+    console.log(selectedvideo)
         await startScreenShare();
+}
     //setInterval(captureImage, 3000);
     document.getElementById('wrap').style.display = 'none';
     UIkit.notification({

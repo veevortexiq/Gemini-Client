@@ -35,6 +35,12 @@
                                     <option value="AUDIO">AUDIO</option>
                                     <option value="TEXT">TEXT</option>
                                 </select>
+
+                                <span>Video</span>
+                                <select id="videoselection" onchange="toggleVoiceSelection()">
+                                    <option value="Screenshare">Screenshare</option>
+                                    <option value="Webcam">Webcam</option>
+                                </select>
                                 <div id="voiceSelectionContainer" style="display: none;">
                                     <span>Voice</span>
                                     <select id="geminiVoiceSelect">
