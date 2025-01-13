@@ -1,0 +1,136 @@
+@import url(global.css);
+
+body {
+    background: #F9FAFB;
+    font-family: var(--vrx-primary-font);
+}
+
+.left-col {
+    padding: 25px;
+}
+
+.content {
+    padding: 25px 50px;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+a, button {
+    transition: all 0.5s;
+}
+
+
+.vrx-btn.vrx-btn-custom {
+    background: #F9FAFB !important;
+    border: 1px solid #D0D5DD !important;
+    border-radius: 12px;
+    color: #344054;
+    min-height: 40px;
+    outline: none;
+    padding: 0 1rem;
+}
+
+.vrx-btn.vrx-btn-custom:hover,
+.vrx-btn.vrx-btn-custom.active {
+    border-color: var(--vrx-text-primary) !important;
+}
+
+.cols {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+.cols button {
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+.card-brd {
+    border-color: #e6e6e6 !important;
+}
+
+
+.brd-btm {
+    border-bottom: 1px solid #e6e6e6 !important;
+}
+
+
+.brd-top {
+    border-top: 1px solid #e6e6e6 !important;
+}
+
+.logo img {
+    position: relative;
+    top: -5px;
+}
+
+.logo a{
+    display: block;
+}
+
+ul.screen-options {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    justify-content: end;
+}
+
+ul.screen-options li img {
+    padding-right: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.scroll-content {
+    max-height: 250px;
+    overflow-y: scroll;
+    padding-right: 30px;
+}
+
+.scroll-content::-webkit-scrollbar {
+    width: 10px;
+}
+  
+.scroll-content::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+.scroll-content::-webkit-scrollbar-thumb {
+    background: #ebebeb; 
+}
+
+.scroll-content::-webkit-scrollbar-thumb:hover {
+    background: #ccc; 
+}
+
+
+  @media (min-width: 768px) {
+    .row.equal {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 767px) {
+    ul.screen-options {
+        justify-content: start;
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .content,
+    .left-col {
+        padding: 20px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    ul.screen-options {
+        flex-direction: column;
+        text-align: left;
+    }
+  }

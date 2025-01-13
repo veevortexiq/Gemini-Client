@@ -1,87 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Video Capture App</title>
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <!-- UIkit CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.17/dist/css/uikit.min.css" />
-<!-- UIkit JS -->
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.21.17/dist/js/uikit.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.21.17/dist/js/uikit-icons.min.js"></script>
-    <link rel="stylesheet" href="/index.css">
-    <style>
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen1</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/custom.css"/>
 </head>
 <body>
-    <body>
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <h3 class="title">VIQ AI Assistant</h3>
-                    <div class="screenshare">
-                        <div id="wrap">
-                        </div>
-                        
-                        <!-- Video Element -->
-                        <video id="videoElement" autoplay style="width: 640px; height: 480px;"></video>
-    
-                        <!-- Hidden Canvas -->
-                        <canvas id="canvasElement" style="width: 640px; height: 480px;"></canvas>
+    <div class="container-fluid">
+        <div class="row equal">
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 bg-white">
+                <div class="left-col">
+                    <div class="logo vrx-pb-3 vrx-mb-3">
+                        <a href="#" class="vrx-display-xs vrx-minibold vrx-text-dark vrx-ls-m-1"><img src="images/logo.svg" /> AI Assistant</a>
                     </div>
-                        <!-- Text Output -->
-                        <div id="chatLog"></div>
-                        <div class="sidebar-options">
-                            <div class="option-group">
-                                <span>Output</span>
-                                <select id="textoraudio" onchange="toggleVoiceSelection()">
-                                    <option value="AUDIO">AUDIO</option>
-                                    <option value="TEXT">TEXT</option>
-                                </select>
+                    <div class="cols vrx-pb-3 vrx-mb-3">
+                        <p class="vrx-text-sm">Input</p>
+                        <button class="vrx-btn vrx-btn-custom vrx-text-semibold vrx-text-sm">Audio</button>
+                    </div>
 
-                                <span>Video</span>
-                                <select id="videoselection" onchange="toggleVoiceSelection()">
-                                    <option value="Screenshare">Screenshare</option>
-                                    <option value="Webcam">Webcam</option>
-                                </select>
-                                <div id="voiceSelectionContainer" style="display: none;">
-                                    <span>Voice</span>
-                                    <select id="geminiVoiceSelect">
-                                        <option value="AOEDE">Aoede (Female)</option>
-                                        <option value="CHARON">Charon (Male)</option>
-                                        <option value="FENRIR">Fenrir (Male)</option>
-                                        <option value="KORE">Kore (Female)</option>
-                                        <option value="PUCK">Puck (Male)</option>
-                                    </select>
-                                </div>
-                                <div class="temperature-control">
-                                    <label for="temperatureSlider">
-                                        Temperature: <span id="temperatureValue">0.7</span>
-                                    </label>
-                                    <input type="range" 
-                                           id="temperatureSlider" 
-                                           min="0" 
-                                           max="1" 
-                                           step="0.1" 
-                                           value="0.7"
-                                           oninput="updateTemperature()">
-                                </div>
-                                <div class="button-container">
-                                    <button class="control-btn start" onclick="startProcess()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M8 5v14l11-7z"/>
-                                        </svg>
-                                    </button>
-                                    <button class="control-btn stop" onclick="stopAudioInput()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M6 6h12v12H6z"/>
-                                        </svg>
-                                    </button>
-                                </div>
+                    <div class="cols vrx-pb-3 vrx-mb-3">
+                        <p class="vrx-text-sm">Output</p>
+                        <button class="vrx-btn vrx-btn-custom vrx-btn-custom-output vrx-text-semibold vrx-text-sm active">Audio</button>
+                        <button class="vrx-btn vrx-btn-custom vrx-btn-custom-output vrx-text-semibold vrx-text-sm">Text</button>
+                    </div>
+                    <div class="cols vrx-pb-3 vrx-mb-3">
+                        <p>Male Voice</p>
+                        <button class="vrx-btn vrx-btn-custom vrx-btn-custom-voice vrx-text-semibold vrx-text-sm active">Puck</button>
+                        <button class="vrx-btn vrx-btn-custom vrx-btn-custom-voice vrx-text-semibold vrx-text-sm">Charon</button>
+                        <button class="vrx-btn vrx-btn-custom vrx-btn-custom-voice vrx-text-semibold vrx-text-sm">Fenrir</button>
+                    </div>
+                    <div class="cols vrx-pb-3 vrx-mb-3">
+                        <p>Female Voice</p>
+                        <button class="vrx-btn vrx-btn-custom vrx-btn-custom-voice vrx-text-semibold vrx-text-sm">Aoede</button>
+                        <button class="vrx-btn vrx-btn-custom vrx-btn-custom-voice vrx-text-semibold vrx-text-sm">Kore</button>
+                    </div>   
+                    <div class="cols vrx-pb-3 vrx-mb-3">
+                        
+                        <p class="vrx-text-sm">Video Feed</p>
+                        <div class="d-flex justify-content-between vrx-mb-3">
+                            <a href="#" class="vrx-text-xs vrx-text-dark vrx-text-minibold stop-button"><img src="images/icon-stop.svg" class="vrx-px-1"/>Stop</a>
+                        </div>
+                        <img class="placeholder"src="images/placeholder.jpg" alt="" />
+                                <video id="videoElement" autoplay ></video>
+                                <canvas id="canvasElement" style="width: 640px; height: 480px;"></canvas>
+                    </div>                 
+                </div>
+            </div>
+            <div class="col-12 col-md-8 col-lg-9 col-xl-10">
+                <div class="content">
+                    <div class="row vrx-mb-3">
+                        <div class="col-12 col-md-6">
+                            <h1 class="vrx-text-semibold vrx-display-xs vrx-text-dark">Share your screen</h1>
+                        </div>
+                        <div class="col-12 col-md-6 vrx-text-end">
+                            <ul class="screen-options">
+                                <li><a href="#" class="vrx-text-xs vrx-text-dark vrx-text-minibold webcamBtn"><img src="images/icon-video.svg"/> Share your Video</a></li>
+                                <li><a href="#" class="vrx-text-xs vrx-text-dark vrx-text-minibold sharescreenBtn"><img src="images/icon-screen.svg"/> Share your Screen</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-brd vrx-px-5 vrx-py-5 vrx-radius-xl">
+                               
+                              
+                                
+                            
+                                <h3 class="vrx-mb-0 vrx-text-semibold vrx-text-lg vrx-mt-4 brd-btm vrx-pb-3 vrx-mb-3">Vortex IQ Al Assistant Response</h3>
+                                <div class="scroll-content" id="chat">
+                                    
                             </div>
                         </div>
-                        <div id="response-container">
-                        </div>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r77/three.min.js" ></script>
-                        <script src="/script.js"></script>
-                        <button class="copy-button" onclick="copy()">Copy</button>
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.17/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.17/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.17/dist/js/uikit-icons.min.js"></script>
+<script src="/script.js"></script>
 </body>
+
 </html>

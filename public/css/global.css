@@ -1,0 +1,957 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+#videoElement {
+    display: none;
+    width: 1070px !important;
+    height: 135px  !important;
+}
+
+#canvasElement {
+    display: none;
+    width: 640px;
+    height: 480px;
+}
+
+.screenshareDiv {
+    justify-content: center;
+}
+
+:root {
+    --vrx-display-2xl: 4.5rem;
+    --vrx-display-xl: 3.75rem;
+    --vrx-display-lg: 3rem;
+    --vrx-display-md: 2.25rem;
+    --vrx-display-sm: 1.875rem;
+    --vrx-display-xs: 1.5rem;
+
+    --vrx-text-xl: 1.25rem;
+    --vrx-text-lg: 1.125rem;
+    --vrx-text-md: 1rem;
+    --vrx-text-sm: 0.940rem;
+    --vrx-text-xs: 0.875rem;
+
+    --vrx-lh-2xl: 5.625rem;
+    --vrx-lh-xl: 4.5rem;
+    --vrx-lh-lg: 3.75rem;
+    --vrx-lh-md: 2.75rem;
+    --vrx-lh-sm: 2.375rem;
+    --vrx-lh-xs: 2rem;
+    --vrx-lh-xxs: 1.5rem;
+
+    --vrx-text-start: left;
+    --vrx-text-center: center;
+    --vrx-text-end: right;
+
+    --vrx-text-white: #fff;
+    --vrx-text-black: #000;
+    --vrx-primary-light: #475467;
+    --vrx-primary-title: #667085;
+
+    --vrx-text-bold: 700;
+    --vrx-text-semibold: 600;
+    --vrx-text-minibold: 500;
+    --vrx-text-normal: 400;
+    --vrx-text-light: 300;
+    --vrx-text-bolder: 800;
+
+    --vrx-btn-primary: #5529D6;
+    --vrx-btn-warning: #F79009;
+    --vrx-btn-danger: #D92D20;
+    --vrx-secondary: #344054;
+    --vrx-text-dark: #101828;
+    --vrx-btn-border: #D0D5DD;
+    --vrx-text-tertiary: #475467;
+    --vrx-text-gray: #9A9DAB;
+    --vrx-text-danger: #D92D20;
+    --vrx-btn-primary-hover: #4B24BE;
+    --vrx-btn-danger-hover: #B42318;
+
+    --vrx-text-primary: #5529D6;
+    --vrx-text-secondary: #475467;
+
+    --vrx-pb-0: 0;
+    --vrx-pb-1: .25rem;
+    --vrx-pb-2: .5rem;
+    --vrx-pb-3: 1rem;
+    --vrx-pb-4: 1.5rem;
+    --vrx-pb-5: 3rem;
+
+    --vrx-pt-0: 0;
+    --vrx-pt-1: .25rem;
+    --vrx-pt-2: .5rem;
+    --vrx-pt-3: 1rem;
+    --vrx-pt-4: 1.5rem;
+    --vrx-pt-5: 3rem;
+
+    --vrx-px-1: .25rem;
+    --vrx-px-2: .5rem;
+    --vrx-px-3: 1rem;
+    --vrx-px-4: 1.5rem;
+    --vrx-px-5: 3rem;
+
+    --vrx-py-1: .25rem;
+    --vrx-py-2: .5rem;
+    --vrx-py-3: 1rem;
+    --vrx-py-4: 1.5rem;
+    --vrx-py-5: 3rem;
+
+    --vrx-mt-0: 0;
+    --vrx-mt-1: .25rem;
+    --vrx-mt-2: .5rem;
+    --vrx-mt-3: 1rem;
+    --vrx-mt-4: 1.5rem;
+    --vrx-mt-5: 3rem;
+
+    --vrx-mb-0: 0;
+    --vrx-mb-1: .25rem;
+    --vrx-mb-2: .5rem;
+    --vrx-mb-3: 1rem;
+    --vrx-mb-4: 1.5rem;
+    --vrx-mb-5: 3rem;
+    
+    --vrx-me-0: 0;
+    --vrx-me-1: .25rem;
+    --vrx-me-2: .5rem;
+    --vrx-me-3: 1rem;
+    --vrx-me-4: 1.5rem;
+    --vrx-me-5: 3rem;
+
+    --vrx-mr-0: 0;
+    --vrx-mr-1: .25rem;
+    --vrx-mr-2: .5rem;
+    --vrx-mr-3: 1rem;
+    --vrx-mr-4: 1.5rem;
+    --vrx-mr-5: 3rem;
+
+    --vrx-px-0: 0;
+    --vrx-py-0: 0;
+
+    --vrx-ls-p-1: 1px;
+    --vrx-ls-p-2: 2px;
+    --vrx-ls-p-3: 3px;
+    --vrx-ls-p-4: 4px;
+    --vrx-ls-p-5: 5px;
+
+    --vrx-ls-m-1: -1px;
+    --vrx-ls-m-2: -2px;
+    --vrx-ls-m-3: -3px;
+    --vrx-ls-m-4: -4px;
+    --vrx-ls-m-5: -5px;
+
+    --vrx-radius-none: 0;
+    --vrx-radius-xxs: 0.2rem;
+    --vrx-radius-xs: 0.4rem;
+    --vrx-radius-sm: 0.6rem;
+    --vrx-radius-md: 0.8rem;
+    --vrx-radius-lg: 1rem;
+    --vrx-radius-xl: 1.2rem;
+    --vrx-radius-2xl: 1.6rem;
+    --vrx-radius-3xl: 2rem;
+    --vrx-radius-4xl: 2.4rem;
+    --vrx-radius-full: 50%;
+
+    --vrx-spacing-none: 0;
+    --vrx-spacing-half: 0.2rem;
+    --vrx-spacing-1s: 0.4rem;
+    --vrx-spacing-1half: 0.6rem;
+    --vrx-spacing-2s: 0.8rem;
+    --vrx-spacing-3s: 1.2rem;
+    --vrx-spacing-4s: 1.6rem;
+    --vrx-spacing-5s: 2rem;
+    --vrx-spacing-6s: 2.4rem;
+    --vrx-spacing-8s: 3.2rem;
+    --vrx-spacing-10s: 4rem;
+    --vrx-spacing-12s: 4.8rem;
+    --vrx-spacing-16s: 6.4rem;
+    --vrx-spacing-20s: 8rem;
+    --vrx-spacing-24s: 9.6rem;
+    --vrx-spacing-32s: 12.8rem;
+    --vrx-spacing-40s: 16.0rem;
+    --vrx-spacing-48s: 19.2rem;
+    --vrx-spacing-56s: 22.4rem;
+    --vrx-spacing-64s: 25.6rem;
+    --vrx-spacing-80s: 32.0rem;
+    --vrx-spacing-96s: 38.4rem;
+    --vrx-spacing-120s: 48.0rem;
+    --vrx-spacing-140s: 56.0rem;
+    --vrx-spacing-160s: 64.0rem;
+    --vrx-spacing-180s: 72.0rem;
+    --vrx-spacing-192s: 76.8rem;
+    --vrx-spacing-256s: 102.4rem;
+    --vrx-spacing-320s: 128.0rem;
+    --vrx-spacing-360s: 144.0rem;
+    --vrx-spacing-400s: 166.0rem;
+    --vrx-spacing-480s: 192.0rem;
+    --vrx-primary-font: "Plus Jakarta Sans", sans-serif;
+    --vrx-d-flex: flex;
+    --vrx-justify-content-between: space-between;
+    --vrx-align-items-center: center;
+}
+
+.vrx-d-flex {
+    display: var(--vrx-d-flex)
+}
+
+.vrx-justify-content-between {
+    justify-content: var(--vrx-justify-content-between)
+}
+
+.vrx-align-items-center {
+    align-items: var(--vrx-align-items-center);
+}
+
+.vrx-text-white {
+    color: var(--vrx-text-white)
+}
+
+.vrx-text-black {
+    color: var(--vrx-text-black)
+}
+
+.vrx-text-dark {
+    color: var(--vrx-text-dark)
+}
+
+.vrx-primary-light {
+    color: var(--vrx-primary-light)
+}
+
+.vrx-primary-light {
+    color: var(--vrx-primary-title)
+}
+
+.vrx-text-start {
+    text-align: var(--vrx-text-start);
+}
+
+.vrx-text-light {
+    font-weight: var(--vrx-text-light);
+}
+
+.vrx-text-normal {
+    font-weight: var(--vrx-text-normal);
+}
+
+.vrx-text-semibold {
+    font-weight: var(--vrx-text-semibold);
+}
+
+.vrx-text-minibold {
+    font-weight: var(--vrx-text-minibold);
+}
+
+.vrx-text-bold {
+    font-weight: var(--vrx-text-bold);
+}
+
+.vrx-text-bolder {
+    font-weight: var(--vrx-text-bolder);
+}
+
+.vrx-text-center {
+    text-align: var(--vrx-text-center);
+}
+
+.vrx-text-end {
+    text-align: var(--vrx-text-end);
+}
+
+/* vortex css starts */
+.vrx-text-xl {
+    font-size: var(--vrx-text-xl);
+}
+
+.vrx-text-lg {
+    font-size: var(--vrx-text-lg);
+}
+
+.vrx-text-md {
+    font-size: var(--vrx-text-md);
+}
+
+.vrx-text-sm {
+    font-size: var(--vrx-text-sm);
+}
+
+.vrx-text-xs {
+    font-size: var(--vrx-text-xs);
+}
+
+.vrx-display-2xl {
+    font-size: var(--vrx-display-2xl);
+}
+
+.vrx-display-xl {
+    font-size: var(--vrx-display-xl);
+}
+
+.vrx-display-lg {
+    font-size: var(--vrx-display-lg);
+}
+
+.vrx-display-md {
+    font-size: var(--vrx-display-md);
+}
+
+.vrx-display-sm {
+    font-size: var(--vrx-display-sm);
+}
+
+.vrx-display-xs {
+    font-size: var(--vrx-display-xs);
+}
+
+/* Letter Spacing */
+
+.vrx-ls-p-1 {
+    letter-spacing: var(--vrx-ls-p-1);
+}
+
+.vrx-ls-p-2 {
+    letter-spacing: var(--vrx-ls-p-2);
+}
+
+.vrx-ls-p-3 {
+    letter-spacing: var(--vrx-ls-p-3);
+}
+
+.vrx-ls-p-4 {
+    letter-spacing: var(--vrx-ls-p-4);
+}
+
+.vrx-ls-p-5 {
+    letter-spacing: var(--vrx-ls-p-5);
+}
+
+.vrx-ls-m-1 {
+    letter-spacing: var(--vrx-ls-m-1);
+}
+
+.vrx-ls-m-2 {
+    letter-spacing: var(--vrx-ls-m-2);
+}
+
+.vrx-ls-m-3 {
+    letter-spacing: var(--vrx-ls-m-3);
+}
+
+.vrx-ls-m-4 {
+    letter-spacing: var(--vrx-ls-m-4);
+}
+
+.vrx-ls-m-5 {
+    letter-spacing: var(--vrx-ls-m-5);
+}
+
+/* Line height */
+
+.vrx-lh-2xl {
+    line-height: var(--vrx-lh-2xl);
+}
+
+.vrx-lh-xl {
+    line-height: var(--vrx-lh-xl);
+}
+
+.vrx-lh-lg {
+    line-height: var(--vrx-lh-lg);
+}
+
+.vrx-lh-md {
+    line-height: var(--vrx-lh-md);
+}
+
+.vrx-lh-sm {
+    line-height: var(--vrx-lh-sm);
+}
+
+.vrx-lh-xs {
+    line-height: var(--vrx-lh-xs);
+}
+
+.vrx-lh-xxs {
+    line-height: var(--vrx-lh-xxs);
+}
+
+/* Padding Bottom */
+.vrx-pb-0 {
+    padding-bottom: var(--vrx-pb-0) !important;
+}
+
+.vrx-pb-1 {
+    padding-bottom: var(--vrx-pb-1) !important;
+}
+
+.vrx-pb-2 {
+    padding-bottom: var(--vrx-pb-2) !important;
+}
+
+.vrx-pb-3 {
+    padding-bottom: var(--vrx-pb-3) !important;
+}
+
+.vrx-pb-4 {
+    padding-bottom: var(--vrx-pb-4) !important;
+}
+
+.vrx-pb-5 {
+    padding-bottom: var(--vrx-pb-5) !important;
+}
+
+/* Padding Top */
+.vrx-pt-0 {
+    padding-bottom: var(--vrx-pt-0) !important;
+}
+
+.vrx-pt-1 {
+    padding-top: var(--vrx-pt-1) !important;
+}
+
+.vrx-pt-2 {
+    padding-top: var(--vrx-pt-2) !important;
+}
+
+.vrx-pt-3 {
+    padding-top: var(--vrx-pt-3) !important;
+}
+
+.vrx-pt-4 {
+    padding-top: var(--vrx-pt-4) !important;
+}
+
+.vrx-pt-5 {
+    padding-top: var(--vrx-pt-5) !important;
+}
+
+/* Padding left & Right */
+.vrx-px-1 {
+    padding-left: var(--vrx-px-1) !important;
+    padding-right: var(--vrx-px-1) !important;
+}
+
+.vrx-px-2 {
+    padding-left: var(--vrx-px-2) !important;
+    padding-right: var(--vrx-px-2) !important;
+}
+
+.vrx-px-3 {
+    padding-left: var(--vrx-px-3) !important;
+    padding-right: var(--vrx-px-3) !important;
+}
+
+.vrx-px-4 {
+    padding-left: var(--vrx-px-4) !important;
+    padding-right: var(--vrx-px-4) !important;
+}
+
+.vrx-px-5 {
+    padding-left: var(--vrx-px-5) !important;
+    padding-right: var(--vrx-px-5) !important;
+}
+
+/* Padding Top Bottom */
+.vrx-py-1 {
+    padding-top: var(--vrx-py-1) !important;
+    padding-bottom: var(--vrx-py-1) !important;
+}
+
+.vrx-py-2 {
+    padding-top: var(--vrx-py-2) !important;
+    padding-bottom: var(--vrx-py-2) !important;
+}
+
+.vrx-py-3 {
+    padding-top: var(--vrx-py-3) !important;
+    padding-bottom: var(--vrx-py-3) !important;
+}
+
+.vrx-py-4 {
+    padding-top: var(--vrx-py-4) !important;
+    padding-bottom: var(--vrx-py-4) !important;
+}
+
+.vrx-py-5 {
+    padding-top: var(--vrx-py-5) !important;
+    padding-bottom: var(--vrx-py-5) !important;
+}
+
+/* Margint Bottom */
+.vrx-mb-0 {
+    margin-bottom: var(--vrx-mb-0) !important;
+}
+.vrx-mb-1 {
+    margin-bottom: var(--vrx-mb-1) !important;
+}
+
+.vrx-mb-2 {
+    margin-bottom: var(--vrx-mb-2) !important;
+}
+
+.vrx-mb-3 {
+    margin-bottom: var(--vrx-mb-3) !important;
+}
+
+.vrx-mb-4 {
+    margin-bottom: var(--vrx-mb-4) !important;
+}
+
+.vrx-mb-5 {
+    margin-bottom: var(--vrx-mb-5) !important;
+}
+
+/* Margint Top */
+.vrx-mt-0 {
+    margin-top: var(--vrx-mt-0) !important;
+}
+
+.vrx-mt-1 {
+    margin-top: var(--vrx-mt-1) !important;
+}
+
+.vrx-mt-2 {
+    margin-top: var(--vrx-mt-2) !important;
+}
+
+.vrx-mt-3 {
+    margin-top: var(--vrx-mt-3) !important;
+}
+
+.vrx-mt-4 {
+    margin-top: var(--vrx-mt-4) !important;
+}
+
+.vrx-mt-5 {
+    margin-top: var(--vrx-mt-5) !important;
+}
+
+/* margin left starts */
+.vrx-me-0 {
+    margin-left: var(--vrx-me-0);
+}
+
+.vrx-me-1 {
+    margin-left: var(--vrx-me-1);
+}
+
+.vrx-me-2 {
+    margin-left: var(--vrx-me-2);
+}
+
+.vrx-me-3 {
+    margin-left: var(--vrx-me-3);
+}
+
+.vrx-me-4 {
+    margin-left: var(--vrx-me-4);
+}
+
+.vrx-me-4 {
+    margin-left: var(--vrx-me-5);
+}
+
+/* margin right */
+.vrx-mr-0 {
+    margin-right: var(--vrx-mr-0);
+}
+
+.vrx-mr-1 {
+    margin-right: var(--vrx-mr-1);
+}
+
+.vrx-mr-2 {
+    margin-right: var(--vrx-mr-2);
+}
+
+.vrx-mr-3 {
+    margin-right: var(--vrx-mr-3);
+}
+
+.vrx-mr-4 {
+    margin-right: var(--vrx-mr-4);
+}
+
+.vrx-mr-4 {
+    margin-right: var(--vrx-mr-5);
+}
+
+/* buttons starts */
+.vrx-2xl-btn,
+.vrx-xl-btn,
+.vrx-lg-btn,
+.vrx-btn,
+.vrx-sm-btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 30px;
+    font-weight: var(--vrx-text-semibold);
+}
+
+.vrx-2xl-btn {
+    padding: 0 3rem;
+    height: 60px;
+    line-height: 60px;
+    font-size: 17px;
+    min-height: 60px;
+}
+
+.vrx-xl-btn {
+    padding: 0 2.5rem;
+    height: 48px;
+    line-height: 48px;
+    font-size: 16px;
+    min-height: 48px;
+}
+
+.vrx-lg-btn {
+    padding: 0 2rem;
+    height: 44px;
+    line-height: 44px;
+    font-size: 15px;
+    min-height: 44px;
+}
+
+.vrx-btn {
+    padding: 0 1.8rem;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    min-height: 40px;
+
+}
+
+.vrx-sm-btn {
+    padding: 0 1.5rem;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    min-height: 36px;
+}
+
+/* Primary Buttons */
+
+.vrx-btn-primary {
+    background: var(--vrx-btn-primary);
+    color: var(--vrx-text-white);
+}
+
+.vrx-btn-primary:hover,
+.vrx-btn-primary:focus,
+.vrx-btn-primary:active {
+    background: var(--vrx-btn-primary-hover);
+    outline: none;
+    color: var(--vrx-text-white)
+}
+
+.vrx-btn-secondary {
+    background: var(--vrx-text-white);
+    color: var(--vrx-secondary);
+    border: 1px solid var(--vrx-btn-border);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;
+}
+
+.vrx-btn-secondary:hover,
+.vrx-btn-secondary:focus,
+.vrx-btn-secondary:active {
+    background: var(--vrx-text-white);
+    color: var(--vrx-secondary);
+    border: 1px solid var(--vrx-btn-border);
+    box-shadow: rgba(99, 99, 99, 0.4) 0px 1px 4px 0px;
+}
+
+.vrx-btn-white-primary {
+    background: var(--vrx-text-white);
+    color: var(--vrx-btn-primary);
+    border: 1px solid var(--vrx-btn-border);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;
+}
+
+.vrx-btn-white-primary:hover,
+.vrx-btn-white-primary:focus,
+.vrx-btn-white-primary:active {
+    background: var(--vrx-text-white);
+    color: var(--vrx-secondary);
+    border: 1px solid var(--vrx-btn-border);
+    box-shadow: rgba(99, 99, 99, 0.4) 0px 1px 4px 0px;
+}
+
+.vrx-btn-outline-primary {
+    border: 1px solid var(--vrx-btn-primary);
+    background: var(--vrx-text-white);
+    color: var(--vrx-btn-primary);
+    color: var(--vrx-secondary);
+}
+
+.vrx-btn-outline-primary:hover,
+.vrx-btn-outline-primary:focus,
+.vrx-btn-outline-primary:active {
+    border: 1px solid var(--vrx-btn-primary-hover);
+    background: var(--vrx-text-white);
+    outline: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.vrx-btn-tertiary-primary {
+    background: transparent;
+    color: var(--vrx-text-tertiary);
+}
+
+.vrx-btn-tertiary-primary:hover,
+.vrx-btn-tertiary-primary:focus,
+.vrx-btn-tertiary-primary:active {
+    background: transparent;
+    color: var(--vrx-text-tertiary);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+/* Buttons Danger */
+
+.vrx-btn-danger {
+    background: var(--vrx-btn-danger);
+    color: var(--vrx-text-white);
+}
+
+.vrx-btn-danger:hover {
+    background: var(--vrx-btn-danger-hover);
+}
+
+.vrx-btn-white-danger {
+    background: var(--vrx-text-white);
+    color: var(--vrx-text-danger);
+    border: 1px solid var(--vrx-text-danger);
+}
+
+.vrx-btn-white-danger:hover,
+.vrx-btn-white-danger:focus,
+.vrx-btn-white-danger:active {
+    background: var(--vrx-text-white);
+    color: var(--vrx-text-danger);
+    border: 1px solid var(--vrx-btn-border);
+}
+
+.vrx-btn-outline-danger {
+    border: 1px solid var(--vrx-btn-danger);
+    background: var(--vrx-text-white);
+    color: var(--vrx-secondary);
+}
+
+.vrx-btn-outline-danger:hover,
+.vrx-btn-outline-danger:focus,
+.vrx-btn-outline-danger:active {
+    border: 1px solid var(--vrx-btn-danger-hover);
+    background: var(--vrx-text-white);
+    outline: none;
+}
+
+.vrx-btn-tertiary-danger {
+    background: transparent;
+    color: var(--vrx-text-danger);
+}
+
+.vrx-btn-tertiary-danger:hover,
+.vrx-btn-tertiary-danger:focus,
+.vrx-btn-tertiary-danger:active {
+    background: transparent;
+    color: var(--vrx-text-danger);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+/* buttons ends */
+
+.vrx-text-primary {
+    color: var(--vrx-text-primary);
+}
+
+.vrx-text-secondary {
+    color: var(--vrx-text-secondary);
+}
+
+.vrx-text-primary:hover {
+    color: var(--vrx-text-primary)
+}
+
+.vrx-px-0 {
+    padding-left: var(--vrx-px-0) !important;
+    padding-right: var(--vrx-px-0) !important;
+}
+
+.vrx-py-0 {
+    padding-top: var(--vrx-py-0) !important;
+    padding-bottom: var(--vrx-py-0) !important;
+}
+
+/* Border Radius */
+.vrx-radius-none {
+    border-radius: var(--vrx-radius-none);
+}
+
+.vrx-radius-xxs {
+    border-radius: var(--vrx-radius-xxs);
+}
+
+.vrx-radius-xs {
+    border-radius: var(--vrx-radius-xs);
+}
+
+.vrx-radius-sm {
+    border-radius: var(--vrx-radius-sm);
+}
+
+.vrx-radius-md {
+    border-radius: var(--vrx-radius-md);
+}
+
+.vrx-radius-lg {
+    border-radius: var(--vrx-radius-lg);
+}
+
+.vrx-radius-xl {
+    border-radius: var(--vrx-radius-xl);
+}
+
+.vrx-radius-2xl {
+    border-radius: var(--vrx-radius-2xl);
+}
+
+.vrx-radius-3xl {
+    border-radius: var(--vrx-radius-3xl);
+}
+
+.vrx-radius-4xl {
+    border-radius: var(--vrx-radius-4xl);
+}
+
+.vrx-radius-full {
+    border-radius: var(--vrx-radius-full);
+}
+
+/* Spacing & Width */
+.vrx-spacing-none {
+    width: var(--vrx-spacing-none);
+}
+
+.vrx-spacing-half {
+    width: var(--vrx-spacing-half);
+}
+
+.vrx-spacing-1s {
+    width: var(--vrx-spacing-1s);
+}
+
+.vrx-spacing-1half {
+    width: var(--vrx-spacing-1half);
+}
+
+.vrx-spacing-2s {
+    width: var(--vrx-spacing-2s);
+}
+
+.vrx-spacing-3s {
+    width: var(--vrx-spacing-3s);
+}
+
+.vrx-spacing-4s {
+    width: var(--vrx-spacing-4s);
+}
+
+.vrx-spacing-5s {
+    width: var(--vrx-spacing-5s);
+}
+
+.vrx-spacing-6s {
+    width: var(--vrx-spacing-6s);
+}
+
+.vrx-spacing-8s {
+    width: var(--vrx-spacing-8s);
+}
+
+.vrx-spacing-10s {
+    width: var(--vrx-spacing-10s);
+}
+
+.vrx-spacing-12s {
+    width: var(--vrx-spacing-12s);
+}
+
+.vrx-spacing-16s {
+    width: var(--vrx-spacing-16s);
+}
+
+.vrx-spacing-20s {
+    width: var(--vrx-spacing-20s);
+}
+
+.vrx-spacing-24s {
+    width: var(--vrx-spacing-24s);
+}
+
+.vrx-spacing-32s {
+    width: var(--vrx-spacing-32s);
+}
+
+.vrx-spacing-40s {
+    width: var(--vrx-spacing-40s);
+}
+
+.vrx-spacing-48s {
+    width: var(--vrx-spacing-48s);
+}
+
+.vrx-spacing-56s {
+    width: var(--vrx-spacing-56s);
+}
+
+.vrx-spacing-64s {
+    width: var(--vrx-spacing-64s);
+}
+
+.vrx-spacing-80s {
+    width: var(--vrx-spacing-80s);
+}
+
+.vrx-spacing-96s {
+    width: var(--vrx-spacing-96s);
+}
+
+.vrx-spacing-120s {
+    width: var(--vrx-spacing-120s);
+}
+
+.vrx-spacing-140s {
+    width: var(--vrx-spacing-140s);
+}
+
+.vrx-spacing-160s {
+    width: var(--vrx-spacing-160s);
+}
+
+.vrx-spacing-180s {
+    width: var(--vrx-spacing-180s);
+}
+
+.vrx-spacing-192s {
+    width: var(--vrx-spacing-192s);
+}
+
+.vrx-spacing-256s {
+    width: var(--vrx-spacing-256s);
+}
+
+.vrx-spacing-320s {
+    width: var(--vrx-spacing-320s);
+}
+
+.vrx-spacing-360s {
+    width: var(--vrx-spacing-360s);
+}
+
+.vrx-spacing-400s {
+    width: var(--vrx-spacing-400s);
+}
+
+.vrx-spacing-480s {
+    width: var(--vrx-spacing-480s);
+}
+/* vortex css ends */

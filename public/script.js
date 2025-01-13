@@ -8,6 +8,7 @@ const URL = "ws://localhost:9083";
 
 //Variables
 let past_history=''
+let selectedMode=''
 const video = document.getElementById("videoElement");
 const canvas = document.getElementById("canvasElement");
 let promptByuser='';
@@ -16,7 +17,9 @@ let context;
 let customConfig;
 // Initialize context here
 window.addEventListener("load", () => {
+
     context = canvas.getContext("2d");
+    console.log(canvas);
     setInterval(captureImage, 3000);
 });
 let stream = null;
@@ -49,6 +52,10 @@ async function startScreenShare() {
         await new Promise(resolve => {
             video.onloadedmetadata = () => {
                 console.log("video loaded metadata");
+                $('.placeholder').hide();
+                $('#videoElement').show();
+                
+                
                 resolve();
             }
         });
@@ -70,6 +77,9 @@ async function startWebcam() {
         await new Promise(resolve => {
             video.onloadedmetadata = () => {
                 console.log("video loaded metadata");
+                $('.placeholder').hide();
+                $('#videoElement').show();
+                
                 resolve();
             }
         });
@@ -312,8 +322,10 @@ async function startAudioInput() {
 
 //Function to Stop all the process
 function stopAudioInput() {
+    $('.placeholder').show();
+    $('#videoElement').hide();
     UIkit.notification({
-        message: 'Screen Share Ended!',
+        message: 'Session Ended!',
         status: 'primary',
         pos: 'top-right',
         timeout: 5000
@@ -396,50 +408,48 @@ async function startProcess(){
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
     
-    const selectElement = document.getElementById('geminiVoiceSelect');
-    const selectedVoice = selectElement.value;
-    const selectMode= document.getElementById('textoraudio');
-    const selectedMode = selectMode.value;
+    // const selectElement = document.getElementById('geminiVoiceSelect');
+    // const selectedVoice = selectElement.value;
+    // const selectMode= document.getElementById('textoraudio');
+    // const selectedMode = selectMode.value;
 
-    const slider = document.getElementById('temperatureSlider');
-    const temp = parseFloat(slider.value);
+    // const slider = document.getElementById('temperatureSlider');
+    // const temp = parseFloat(slider.value);
 
-    customConfig= {
-        setup: {
-            generation_config: { 
-                response_modalities: [selectedMode],
-                temperature: temp
-            },
-            speech_config: {
-                voice_config: {
-                    prebuilt_voice_config: {
-                        voice_name: selectedVoice
-                    }
-                }
-            }
-        }
-    };
-    
-    console.log('Session configuration:', customConfig);
-    console.log(selectedVoice,selectedMode,temp);
-    const selectvideo= document.getElementById('videoselection');
-    const selectedvideo= selectvideo.value;
-    if(selectedvideo == "Webcam") {
-        console.log(selectedvideo)
+    // customConfig= {
+    //     setup: {
+    //         generation_config: { 
+    //             response_modalities: [selectedMode],
+    //             temperature: temp
+    //         },
+    //         speech_config: {
+    //             voice_config: {
+    //                 prebuilt_voice_config: {
+    //                     voice_name: selectedVoice
+    //                 }
+    //             }
+    //         }
+    //     }
+    // };
+    console.log(selectedMode)
+   
+    if(selectedMode == "webcam") {
+        
    await startWebcam()
     }
 else {
-    console.log(selectedvideo)
+    
         await startScreenShare();
 }
+
     //setInterval(captureImage, 3000);
-    document.getElementById('wrap').style.display = 'none';
-    UIkit.notification({
-        message: 'Screen Share Started!',
-        status: 'primary',
-        pos: 'top-right',
-        timeout: 5000
-    });
+    // document.getElementById('wrap').style.display = 'none';
+    // UIkit.notification({
+    //     message: 'Screen Share Started!',
+    //     status: 'primary',
+    //     pos: 'top-right',
+    //     timeout: 5000
+    // });
 
     // // Initialize audio context right away
     await initializeAudioContext();
@@ -454,19 +464,21 @@ else {
 
 
 //Function to render Text message on screen
+
 function displayMessage(text) {
-
-// Filter out content that exists in pastHistory
-let newText = text;
-
+    // Filter out content that exists in pastHistory
+    let newText = text;
+    
     if (past_history) {
         newText = text.replace(past_history, '').trim();
     }
     
     // Only display if there's new content
-    if (newText) {
-        const messageDiv = document.getElementById('chatLog');
-        const paragraph = document.createElement('p');
+    if (newText && newText != '') {
+        const messageDiv = document.getElementById('chat');
+        console.log(messageDiv)
+        const div = document.createElement('div');
+        div.className = 'brd-top vrx-pt-2 vrx-mt-2';
         
         const timestamp = new Date().toLocaleString('en-US', {
             month: 'short',
@@ -478,21 +490,60 @@ let newText = text;
             hour12: true
         });
         
-        paragraph.textContent = `[${timestamp}] ${newText}`;
-        messageDiv.appendChild(paragraph);
+        div.innerHTML = `
+            <p class="vrx-primary-light">${newText}</p>
+            <h5 class="vrx-text-semibold vrx-text-xs vrx-d-flex vrx-justify-content-between vrx-mb-0">
+                <span>${timestamp}</span>
+                <a href="#"><img src="images/icon-copy.svg" alt=""/></a>
+            </h5>
+        `;
+        
+        messageDiv.appendChild(div);
         messageDiv.scrollTop = messageDiv.scrollHeight;
+            // Update pastHistory with the new content
+            past_history = text;
         
-        // Update pastHistory with the new content
-        past_history = text;
-
-        const copyButton = document.querySelector('.copy-button');
-        const displayStyle = window.getComputedStyle(copyButton).display;
-        
-        if (displayStyle === 'none') {
-            copyButton.style.display = 'block';
-        }
     }
 }
+// function displayMessage(text) {
+
+// // Filter out content that exists in pastHistory
+// let newText = text;
+
+//     if (past_history) {
+//         newText = text.replace(past_history, '').trim();
+//     }
+    
+//     // Only display if there's new content
+//     if (newText) {
+//         const messageDiv = document.getElementById('chatLog');
+//         const paragraph = document.createElement('p');
+        
+//         const timestamp = new Date().toLocaleString('en-US', {
+//             month: 'short',
+//             day: 'numeric',
+//             year: 'numeric',
+//             hour: '2-digit',
+//             minute: '2-digit',
+//             second: '2-digit',
+//             hour12: true
+//         });
+        
+//         paragraph.textContent = `[${timestamp}] ${newText}`;
+//         messageDiv.appendChild(paragraph);
+//         messageDiv.scrollTop = messageDiv.scrollHeight;
+        
+//         // Update pastHistory with the new content
+//         past_history = text;
+
+//         const copyButton = document.querySelector('.copy-button');
+//         const displayStyle = window.getComputedStyle(copyButton).display;
+        
+//         if (displayStyle === 'none') {
+//             copyButton.style.display = 'block';
+//         }
+//     }
+// }
 
 //Function to render Text message on screen
 function addParagraphToDiv(divId, text) {
@@ -505,43 +556,41 @@ function addParagraphToDiv(divId, text) {
 
 
 //Function for slider
-function updateTemperature() {
-    const slider = document.getElementById('temperatureSlider');
-    const display = document.getElementById('temperatureValue');
-    const temperature = parseFloat(slider.value);
+// function updateTemperature() {
+//     const slider = document.getElementById('temperatureSlider');
+//     const display = document.getElementById('temperatureValue');
+//     const temperature = parseFloat(slider.value);
     
-    // Update the display
-    display.textContent = temperature.toFixed(1);
+//     // Update the display
+//     display.textContent = temperature.toFixed(1);
     
-    // Example configuration object with temperature
-    const config = {
-        generation_config: {
-            temperature: temperature,
-            // other config options...
-        }
-    };
+//     // Example configuration object with temperature
+//     const config = {
+//         generation_config: {
+//             temperature: temperature,
+//             // other config options...
+//         }
+//     };
 
-    const value = slider.value;
-    const percentage = value * 100;
-    slider.style.background = `linear-gradient(to right, #5529d6 0%, #5529d6 ${percentage}%, #e8e4f7 ${percentage}%, #e8e4f7 100%)`;
-    return temperature;
-}
+//     const value = slider.value;
+//     const percentage = value * 100;
+//     slider.style.background = `linear-gradient(to right, #5529d6 0%, #5529d6 ${percentage}%, #e8e4f7 ${percentage}%, #e8e4f7 100%)`;
+//     return temperature;
+// }
 
 //Function that handles Visibility of the "Voice Selection"
-function toggleVoiceSelection() {
-    const modeSelect = document.getElementById('textoraudio');
-    const voiceContainer = document.getElementById('voiceSelectionContainer');
+// function toggleVoiceSelection() {
+//     const modeSelect = document.getElementById('textoraudio');
+//     const voiceContainer = document.getElementById('voiceSelectionContainer');
     
-    if (modeSelect.value === 'AUDIO') {
-        voiceContainer.style.display = 'block';
-    } else {
-        voiceContainer.style.display = 'none';
-    }
-}
+//     if (modeSelect.value === 'AUDIO') {
+//         voiceContainer.style.display = 'block';
+//     } else {
+//         voiceContainer.style.display = 'none';
+//     }
+// }
 
 
-// Call this on page load to set initial state
-document.addEventListener('DOMContentLoaded', toggleVoiceSelection);
 
 
 //function that handles copy function
@@ -561,149 +610,157 @@ async function copy() {
     }
 }
 
-// Function to Toggle Voice Selection
-function toggleVoiceSelection() {
-    const container = document.getElementById('voiceSelectionContainer');
-    if (document.getElementById('textoraudio').value === 'AUDIO') {
-        container.style.display = 'block';
-        setTimeout(() => container.classList.add('show'), 10);
-    } else {
-        container.classList.remove('show');
-        setTimeout(() => container.style.display = 'none', 300);
-    }
-}
+// // Function to Toggle Voice Selection
+// function toggleVoiceSelection() {
+//     const container = document.getElementById('voiceSelectionContainer');
+//     if (document.getElementById('textoraudio').value === 'AUDIO') {
+//         container.style.display = 'block';
+//         setTimeout(() => container.classList.add('show'), 10);
+//     } else {
+//         container.classList.remove('show');
+//         setTimeout(() => container.style.display = 'none', 300);
+//     }
+// }
 
 
-//threejs app
-var $body = document.body,
-		$wrap = document.getElementById('wrap'),
 
-		areawidth = window.innerWidth,
-		areaheight = window.innerHeight,
+//Function to handle start of the function 
 
-		canvassize = 700,
+$(document).ready(function() {
+    $('.sharescreenBtn').on('click', function() {
+        console.log('hello');
 
-		length = 30,
-		radius = 5.6,
-
-		rotatevalue = 0.035,
-		acceleration = 0,
-		animatestep = 0,
-		toend = false,
-
-		pi2 = Math.PI*2,
-
-		group = new THREE.Group(),
-		mesh, ringcover, ring,
-
-		camera, scene, renderer;
+         // Get text from active voice button
+    let activeVoiceText = $('.vrx-btn-custom-voice.active').text().toUpperCase();
+    
+    // Get text from active custom button
+    let activeinput = $('.vrx-btn-custom-output.active').text().toUpperCase();
+    console.log(activeinput,activeVoiceText)
 
 
-	camera = new THREE.PerspectiveCamera(65, 1, 1, 10000);
-	camera.position.z = 150;
+        customConfig= {
+            setup: {
+                generation_config: { 
+                    response_modalities: [activeinput],
+                    temperature: 0.7
+                },
+                speech_config: {
+                    voice_config: {
+                        prebuilt_voice_config: {
+                            voice_name: activeVoiceText
+                        }
+                    }
+                }
+            }
+        };
 
-	scene = new THREE.Scene();
-	// scene.add(new THREE.AxisHelper(30));
-	scene.add(group);
-
-	mesh = new THREE.Mesh(
-		new THREE.TubeGeometry(new (THREE.Curve.create(function() {},
-			function(percent) {
-
-				var x = length*Math.sin(pi2*percent),
-					y = radius*Math.cos(pi2*3*percent),
-					z, t;
-
-				t = percent%0.25/0.25;
-				t = percent%0.25-(2*(1-t)*t* -0.0185 +t*t*0.25);
-				if (Math.floor(percent/0.25) == 0 || Math.floor(percent/0.25) == 2) {
-					t *= -1;
-				}
-				z = radius*Math.sin(pi2*2* (percent-t));
-
-				return new THREE.Vector3(x, y, z);
-
-			}
-		))(), 200, 1.1, 2, true),
-		new THREE.MeshBasicMaterial({
-			color: 0x5529d6
-			// , wireframe: true
-		})
-	);
-	group.add(mesh);
-
-	ringcover = new THREE.Mesh(new THREE.PlaneGeometry(50, 15, 1), new THREE.MeshBasicMaterial({color: 0xfffffff, opacity: 0, transparent: true}));
-	ringcover.position.x = length+1;
-	ringcover.rotation.y = Math.PI/2;
-	group.add(ringcover);
-
-	ring = new THREE.Mesh(new THREE.RingGeometry(4.3, 5.55, 32), new THREE.MeshBasicMaterial({color: 0x5529d6, opacity: 0, transparent: true}));
-	ring.position.x = length+1.1;
-	ring.rotation.y = Math.PI/2;
-	group.add(ring);
-
-	// fake shadow
-	(function() {
-		var plain, i;
-		for (i = 0; i < 10; i++) {
-			plain = new THREE.Mesh(new THREE.PlaneGeometry(length*2+1, radius*3, 1), new THREE.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.13}));
-			plain.position.z = -2.5+i*0.5;
-			group.add(plain);
-		}
-	})();
-
-	renderer = new THREE.WebGLRenderer({
-		antialias: true
-	});
-	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(canvassize, canvassize);
-	renderer.setClearColor('#ffffff');
-
-	$wrap.appendChild(renderer.domElement);
+console.log(customConfig);
+selectedMode="screenshare"
+startProcess()
+    });
+});
 
 
-	animate();
 
 
-	function start() {
-		toend = true;
-	}
-	
-	function back() {
-		toend = false;
-	}
+$(document).ready(function() {
+    $('.webcamBtn').on('click', function() {
+        console.log('webCamBtn');
 
-	function tilt(percent) {
-		group.rotation.y = percent*0.5;
-	}
-
-	function render() {
-
-		var progress;
-
-		animatestep = Math.max(0, Math.min(240, toend ? animatestep+1 : animatestep-4));
-		acceleration = easing(animatestep, 0, 1, 240);
-
-		if (acceleration > 0.35) {
-			progress = (acceleration-0.35)/0.65;
-			group.rotation.y = -Math.PI/2 *progress;
-			group.position.z = 50*progress;
-			progress = Math.max(0, (acceleration-0.97)/0.03);
-			mesh.material.opacity = 1-progress;
-			ringcover.material.opacity = ring.material.opacity = progress;
-			ring.scale.x = ring.scale.y = 0.9 + 0.1*progress;
-		}
-
-		renderer.render(scene, camera);
-
-	}
-
-	function animate() {
-		mesh.rotation.x += rotatevalue + acceleration;
-		render();
-		requestAnimationFrame(animate);
-	}
-
-	function easing(t,b,c,d) {if((t/=d/2)<1)return c/2*t*t+b;return c/2*((t-=2)*t*t+2)+b;}
+         // Get text from active voice button
+    let activeVoiceText = $('.vrx-btn-custom-voice.active').text().toUpperCase();
+    
+    // Get text from active custom button
+    let activeinput = $('.vrx-btn-custom-output.active').text().toUpperCase();
+    console.log(activeinput,activeVoiceText)
 
 
+        customConfig= {
+            setup: {
+                generation_config: { 
+                    response_modalities: [activeinput],
+                    temperature: 0.7
+                },
+                speech_config: {
+                    voice_config: {
+                        prebuilt_voice_config: {
+                            voice_name: activeVoiceText
+                        }
+                    }
+                }
+            }
+        };
+
+console.log(customConfig);
+selectedMode = "webcam"
+startProcess()
+    });
+});
+
+
+
+
+//function for selecting output format
+
+
+$(document).ready(function() {
+    $('.vrx-btn-custom-output').on('click', function() {
+        // Remove active class from all buttons
+        $('.vrx-btn-custom-output').removeClass('active');
+        
+        // Add active class to clicked button
+        $(this).addClass('active');
+    });
+});
+
+
+//function for selecting voice 
+$(document).ready(function() {
+    $('.vrx-btn-custom-voice').on('click', function() {
+        // Remove active class from all voice buttons
+        $('.vrx-btn-custom-voice').removeClass('active');
+        
+        // Add active class to clicked button
+        $(this).addClass('active');
+    });
+});
+
+
+//function for copying Text : 
+document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(e) {
+        // Check if clicked element is a copy icon
+        if (e.target.matches('img[src="images/icon-copy.svg"]')) {
+            // Find the parent div with class brd-top
+            const parentDiv = e.target.closest('.brd-top');
+            
+            if (parentDiv) {
+                // Get the text content from p tag and timestamp from span
+                const pContent = parentDiv.querySelector('.vrx-primary-light').textContent;
+                const timestamp = parentDiv.querySelector('span').textContent;
+                
+                // Combine the text
+                const textToCopy = `${pContent}\n${timestamp}`;
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        console.log('Text copied successfully');
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy text:', err);
+                    });
+            }
+        }
+    });
+});
+
+//function to stop listening 
+$(document).ready(function() {
+    $('.stop-button').click(function(e) {
+        e.preventDefault();
+        console.log('stopping');
+        stopAudioInput();
+
+    });
+});
